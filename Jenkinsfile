@@ -5,7 +5,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                echo 'Retentio CI pipeline started.'
+                echo 'Checking out Retentio repository'
                 checkout scm
             }
         }
@@ -18,9 +18,21 @@ pipeline {
             }
         }
 
+        stage('Inspect Workspace') {
+            steps {
+                bat 'echo Current directory:'
+                bat 'cd'
+                bat 'echo Repository files:'
+                bat 'dir'
+                bat 'echo Searching for Compose configuration:'
+                bat 'where /r . docker-compose.yml'
+                bat 'where /r . compose.yaml'
+            }
+        }
+
         stage('Build Docker Images') {
             steps {
-                bat '"C:\\Users\\DELL\\AppData\\Local\\Programs\\DockerDesktop\\resources\\bin\\docker-compose.exe" build'
+                bat '"C:\\Users\\DELL\\AppData\\Local\\Programs\\DockerDesktop\\resources\\bin\\docker-compose.exe" -f docker-compose.yml build'
             }
         }
     }
@@ -30,7 +42,7 @@ pipeline {
             echo 'Retentio CI pipeline succeeded.'
         }
         failure {
-            echo 'Retentio CI pipeline failed. Check Console Output.'
+            echo 'Pipeline failed. Check the workspace inspection output.'
         }
     }
 }
