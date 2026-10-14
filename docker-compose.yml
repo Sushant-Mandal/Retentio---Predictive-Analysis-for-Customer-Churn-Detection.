@@ -1,0 +1,19 @@
+services:
+  backend:
+    build:
+      context: ./backend
+    ports:
+      - "8000:8000"
+    environment:
+      MONGODB_URI: ${MONGODB_URI:-}
+      DATABASE_NAME: ${DATABASE_NAME:-retentio}
+      JWT_SECRET: ${JWT_SECRET:-local-development-only}
+      ALLOWED_ORIGINS: ${ALLOWED_ORIGINS:-http://localhost:3000}
+
+  frontend:
+    build:
+      context: ./retentio
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
