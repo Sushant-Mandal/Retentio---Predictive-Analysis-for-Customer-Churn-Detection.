@@ -1,11 +1,10 @@
-
 pipeline {
     agent any
 
     stages {
         stage('Checkout') {
             steps {
-                echo 'Checking out Retentio repository'
+                echo 'Retentio CI pipeline started.'
                 checkout scm
             }
         }
@@ -20,13 +19,9 @@ pipeline {
 
         stage('Inspect Workspace') {
             steps {
-                bat 'echo Current directory:'
                 bat 'cd'
-                bat 'echo Repository files:'
                 bat 'dir'
-                bat 'echo Searching for Compose configuration:'
-                bat 'where /r . docker-compose.yml'
-                bat 'where /r . compose.yaml'
+                bat 'if exist docker-compose.yml (echo docker-compose.yml found) else (echo ERROR: docker-compose.yml missing & exit /b 1)'
             }
         }
 
@@ -42,7 +37,7 @@ pipeline {
             echo 'Retentio CI pipeline succeeded.'
         }
         failure {
-            echo 'Pipeline failed. Check the workspace inspection output.'
+            echo 'Retentio CI pipeline failed. Check Console Output.'
         }
     }
 }
