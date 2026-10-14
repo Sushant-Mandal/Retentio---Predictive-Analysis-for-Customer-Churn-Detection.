@@ -14,13 +14,13 @@ pipeline {
             steps {
                 bat 'git --version'
                 bat 'docker --version'
-                bat '"%LOCALAPPDATA%\\Programs\\DockerDesktop\\resources\\bin\\docker-compose.exe" version'
+                bat '"C:\\Users\\DELL\\AppData\\Local\\Programs\\DockerDesktop\\resources\\bin\\docker-compose.exe" version'
             }
         }
 
         stage('Build Docker Images') {
             steps {
-                bat '"%LOCALAPPDATA%\\Programs\\DockerDesktop\\resources\\bin\\docker-compose.exe" build'
+                bat '"C:\\Users\\DELL\\AppData\\Local\\Programs\\DockerDesktop\\resources\\bin\\docker-compose.exe" build'
             }
         }
     }
