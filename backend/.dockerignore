@@ -4,4 +4,4 @@ __pycache__
 venv
 .env
 .git
-model/*.pkl
+
